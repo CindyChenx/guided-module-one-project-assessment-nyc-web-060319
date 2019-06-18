@@ -4,7 +4,7 @@
 	require 'pry'
 
 
-	$the_world = ["pm","vc","ws","sm","st","sa","sn","rs","sc","sl","sg","sx","sk","si","sb","so","za","kr","ss","es","lk","bl","sd","sr"]
+	$the_world = ["ne","ng","kp","mk","mp","no","om","pk","pw","pa","pg","py","pe","ph","pl","pt","pr","qa","re","ro","ru","rw","sh","kn","lc","mf"]
 	$holidays_of_the_world = {}
 	$sleep_time = (rand(2000..20000))/1000
 
