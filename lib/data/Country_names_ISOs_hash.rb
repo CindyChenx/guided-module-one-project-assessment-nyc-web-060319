@@ -1,4 +1,4 @@
-country_names = {
+COUNTRY_NAMES = {
 	"af" => "Afghanistan",
 	"al" => "Albania",
 	"dz" => "Algeria",
