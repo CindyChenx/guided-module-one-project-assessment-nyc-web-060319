@@ -3,9 +3,9 @@ class ExampleData
 #US only data for sampling
 #holidays_of_the_world = ["us", {meta... }]
 	#require_relative './data_structure_to_parse.rb'
-	require_relative './populateCountryHoliday.rb'
-	require_relative './populate_CountryHoliday_table_from_arrays.rb'	
-	require_relative '../config/environment'
+	# require_relative './populateCountryHoliday.rb'
+	# require_relative './populate_CountryHoliday_table_from_arrays.rb'	
+	# require_relative '../config/environment'
 
 
 
