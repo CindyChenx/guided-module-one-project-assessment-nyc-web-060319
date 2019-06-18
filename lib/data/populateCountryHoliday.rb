@@ -13,16 +13,18 @@ require 'pry'
 			server_replies.each do |server_reply, server_datas| #server_datas = holidays
 				if server_reply == "response"
 					server_datas.each do |holiday_key, holiday_values |
-						holiday_values[0].each do |holiday_hash, holiday_datas| #was holiday_values[0]
-							if holiday_hash == "name"
-								# search DB for the holiday table ID .  
-								#CountryHoliday.create(country_id: , holiday_id: )
-									puts "Holiday_hash is : #{holiday_datas},  country is: #{country}"	
-				
-								#uts "Holidays datas is : #{holiday_datas}"		 #Holidays datas is : New Year's Day
-								# binding.pry. # holiday_array (no [0]). = ["holidays", [{"name"=>"New Year's Day",
-								# holiday_datas.each do |holiday_data, holiday_values| 	# undefined method `each' for "New Year's Day":String
-								# 	puts "holiday_keys is #{holiday_keys}, values is #{holiday_values}"
+						holiday_values.each do |holiday_array_element|
+							holiday_array_element.each do |holiday_hash, holiday_datas| #was holiday_values[0]
+								if holiday_hash == "name"
+									# search DB for the holiday table ID .  
+									#CountryHoliday.create(country_id: , holiday_id: )
+										puts "Holiday_hash is : #{holiday_datas},  country is: #{country}"	
+					
+									#uts "Holidays datas is : #{holiday_datas}"		 #Holidays datas is : New Year's Day
+									# binding.pry. # holiday_array (no [0]). = ["holidays", [{"name"=>"New Year's Day",
+									# holiday_datas.each do |holiday_data, holiday_values| 	# undefined method `each' for "New Year's Day":String
+									# 	puts "holiday_keys is #{holiday_keys}, values is #{holiday_values}"
+								end
 							end
 						end
 					end
