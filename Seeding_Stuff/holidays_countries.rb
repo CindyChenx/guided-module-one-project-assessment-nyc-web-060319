@@ -26,5 +26,3 @@
 	puts
 	puts
 	puts "END"
-
-
