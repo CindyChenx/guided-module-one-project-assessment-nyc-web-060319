@@ -4,5 +4,6 @@ class Holiday < ActiveRecord::Base
     has_many :countryholidays
     has_many :countries, through: :countryholidays
 
-    
+
+
 end

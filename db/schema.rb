@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_18_140246) do
+ActiveRecord::Schema.define(version: 2019_06_18_174319) do
 
   create_table "countries", force: :cascade do |t|
     t.string "name"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2019_06_18_140246) do
     t.string "date"
     t.string "description"
     t.string "name"
-    t.string "type"
+    t.string "type_of_holiday"
   end
 
   create_table "trips", force: :cascade do |t|
