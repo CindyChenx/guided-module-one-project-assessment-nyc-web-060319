@@ -36,9 +36,9 @@ class User < ActiveRecord::Base
     # user changes trip dates
     def update_trip_dates(trip_name, new_start_date, new_end_date)
 
-        trip = Trip.find_by(name: "trip_name")
-        trip.update(start_date: "new_start_date")
-        trip.update(end_date: "new_end_date")
+        trip = Trip.find_by(name: trip_name)
+        trip.update(start_date: new_start_date)
+        trip.update(end_date: new_end_date)
         trip.save
         trip
 
@@ -54,28 +54,30 @@ class User < ActiveRecord::Base
     end
 
     # user deletes all his trips
-    def delete_all_trips (user_name)
+    def delete_all_trips
 
-        Trip.all.select do |trip|
-            trip.user == self
-        end.delete
+        Trip.all.each do |trip|
+           if trip.user == self
+            trip.destroy
+           end
+        end
 
     end
 
     # user deletes trip by name
     def delete_my_trip_by_name (trip_name)
 
-        trip = Trip.find_by(trip_name)
-        trip.delete 
-
-        self.check_my_trip
-
+        Trip.find_by(name: trip_name).destroy
+        
     end
+
+
+    
 
     # user adds a holiday to his trip
     def add_holiday_to_trip(trip_name, holiday_name) 
 
-        HolidayTrip.create(holiday_id: Holiday.find_by("holiday_name").id, trip_id: Trip.find_by("trip_name").id)
+        HolidayTrip.create(holiday_id: Holiday.find_by(name: holiday_name).id, trip_id: Trip.find_by(name: trip_name).id)
 
         self.HolidayTrip.all.map do |x|
             x.holiday 
@@ -138,15 +140,5 @@ class User < ActiveRecord::Base
     end
 
 
-    #################   NOT SURE   ######################
-    # user searches for holidays in the trip's date range
-    def search_holidays(trip_name)
-
-        start_day = Trip.find_by(name: "trip_name").start_date
-        end_day = Trip.find_by(name: "trip_name").end_date
-
-        Holiday.where("date.to_i > start_day.to_i" && "date.to_i < end_day.to_i")
-
-    end
 
 end
