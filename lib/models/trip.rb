@@ -21,6 +21,14 @@ class Trip < ActiveRecord::Base
 
     end
 
+    def display_holidays
+
+        puts (search_holidays.map do |holiday|
+            holiday.name
+        end.join(", "))
+
+    end
+
     # CountryHoliday table by date range
     def return_ch
         answer = []
@@ -46,6 +54,12 @@ class Trip < ActiveRecord::Base
          return countries.uniq
      end
 
+    def display_countries
+       string = search_countries.join(", ")
+    
+       puts string
+    end
+
      # available holidays in that country
      def search_holidays_by_country(country_name)
         chs = return_ch.select do |ch|
@@ -64,7 +78,7 @@ class Trip < ActiveRecord::Base
         
 
 
-    def display_holiday(country_name)
+    def display_holiday_by_country(country_name)
         holidayHash = {}
         hols = self.search_holidays_by_country(country_name)
         hols.each do |hol|

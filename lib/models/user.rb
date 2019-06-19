@@ -25,10 +25,11 @@ class User < ActiveRecord::Base
 
     # user changes trip name
     def update_trip_name(old_trip_name, new_trip_name)
-
-        trip = Trip.find_by(name: old_trip_name)
-        trip.update(name: new_trip_name)
-        trip.save
+        myTrips = self.check_my_trip
+        myTrips.find do |t|
+            t.name == old_trip_name
+        end.update(name: new_trip_name)
+    
        # trip
     
     end
@@ -51,6 +52,12 @@ class User < ActiveRecord::Base
             trip.user == self 
         end
 
+    end
+
+    def display_trips
+        check_my_trip.each do |t|
+            puts t.name + " , from " + t.start_date + " to " + t.end_date
+        end
     end
 
     # user deletes all his trips
