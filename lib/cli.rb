@@ -26,6 +26,8 @@ def self.edit_trip
     puts "Please enter the trip name you would like to edit:"
     tripName = gets.chomp
     userTrip = Trip.find_by(name: tripName)
+    userTrip.display_trip_details
+    puts ""
     puts "Would you like to:
     view: See the details of my trip
     change: Change the name
@@ -46,23 +48,16 @@ def self.edit_trip
     # elsif option == "country"
     #     userTrip.display_countries
     elsif option == "holiday"
-        puts userTrip.display_holidays
-        puts "Choose a holiday by name:"
-        holiday_name = gets.chomp
-        holidayChosen = userTrip.display_countries_by_holiday(holiday_name)
-        userTrip.selectCountry(holidayChosen)
-        userTrip.display_trip_details
+        userTrip.holidayOption
+        #userTrip.display_trip_details
         edit_trip
     elsif option == "back"
         view_or_edit
     elsif option == "view"
-        userTrip.display_trip_details
+        #userTrip.display_trip_details
         edit_trip
     elsif option == "remove"
-        puts "Choose the holiday you want to delete from your trip:"
-        delete_holiday_name = gets.chomp
-        userTrip.delete_holiday_from_trip(delete_holiday_name)
-        userTrip.display_trip_details
+        userTrip.remove_holiday_from_trip
         edit_trip
     else
         puts "invalid input"

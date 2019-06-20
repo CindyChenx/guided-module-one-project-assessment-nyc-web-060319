@@ -105,13 +105,20 @@ class Trip < ActiveRecord::Base
         HolidayTrip.create(holiday_id: hol.id, trip_id: self.id, country_id: country.id)
     end
 
-    # user deletes a holiday from his trip
-    def delete_holiday_from_trip (holiday_name)
 
-        h = Holiday.find_by(name: holiday_name)
 
-        HolidayTrip.find_by(holiday_id: h.id).destroy
-
+    def remove_holiday_from_trip
+        holTrip = HolidayTrip.find_by(trip_id: self.id)
+        if holTrip == nil
+            puts "There are no holidays in your trip"
+        else
+            puts "Choose the holiday you want to delete from your trip:"
+            delete_holiday_name = gets.chomp
+            h = Holiday.find_by(name: delete_holiday_name)
+            HolidayTrip.where(trip_id: self.id, holiday_id: h.id)[0].destroy
+            self.display_trip_details
+        end
+            
     end
 
     # user checks details in his trip
@@ -134,7 +141,16 @@ class Trip < ActiveRecord::Base
         Trip.find(self.id).destroy
     end
 
+    def holidayOption
+        puts self.display_holidays
+        puts "Choose a holiday by name:"
+        holiday_name = gets.chomp
+        holidayChosen = self.display_countries_by_holiday(holiday_name)
+        self.selectCountry(holidayChosen)
+    end
 
+ 
+    
 
 
 
