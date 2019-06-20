@@ -11,6 +11,7 @@ holidayArray.each do |hash|
   date = hash[:date]
   type = hash[:type]
   Holiday.find_or_create_by(name: name, description: description, date: date, type_of_holiday: type)
+
 end
 
 #add the countries to db

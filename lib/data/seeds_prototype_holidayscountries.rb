@@ -51,7 +51,9 @@
 			else 
 				if element != holiday_id_for_db 
 					holiday_id_for_db = Holiday.where(:name => "#{element}")[0].id
-					CountryHoliday.create(country_id: country_id_for_db, holiday_id: holiday_id_for_db )
+					if CountryHoliday.where(country_id: country_id_for_db,  holiday_id: holiday_id_for_db) == []
+						CountryHoliday.create(country_id: country_id_for_db, holiday_id: holiday_id_for_db )
+					end
 				end
 			end
 		end

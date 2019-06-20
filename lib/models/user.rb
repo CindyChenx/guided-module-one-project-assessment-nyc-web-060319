@@ -79,73 +79,44 @@ class User < ActiveRecord::Base
     end
 
 
-    
 
-    # user adds a holiday to his trip
-    def add_holiday_to_trip(trip_name, holiday_name) 
+    # # user checks holidays in his trip
+    # def check_holidays(trip_name)
 
-        HolidayTrip.create(holiday_id: Holiday.find_by(name: holiday_name).id, trip_id: Trip.find_by(name: trip_name).id)
+    #     my_trip_list = HolidayTrip.all.select do |x|
+    #         x.trip_name == trip_name
+    #     end
 
-        self.HolidayTrip.all.map do |x|
-            x.holiday 
-        end
+    #     my_trip_list.all.map do |x|
+    #         x.holiday
+    #     end
 
-    end
+    # end
 
-    # user deletes a holiday from his trip
-    def delete_holiday_from_trip(trip_name, holiday_name)
+    # # user searches for holidays by country
+    # def search_holiday_by_country(country_name)
 
-        my_trip_list = HolidayTrip.all.select do |x|
-            x.trip_name == trip_name
-        end
+    #     country_list = CountryHoliday.all.select do |x|
+    #         x.country == country_name
+    #     end
 
-        my_holiday = my_trip_list.all.select do |y|
-            y.holiday == holiday_name
-        end
+    #     country_list.all.map do |y|
+    #         y.holiday
+    #     end
 
-        my_holiday.delete
+    # end
 
-    end
+    # # user searches for countries by holiday
+    # def search_country_by_holiday(holiday_name)
 
-    # user checks holidays in his trip
-    def check_holidays(trip_name)
+    #     holiday_list = CountryHoliday.all.select do |x|
+    #         x.holiday == holiday_name 
+    #     end
 
-        my_trip_list = HolidayTrip.all.select do |x|
-            x.trip_name == trip_name
-        end
+    #     holiday_list.all.map do |y|
+    #         y.country
+    #     end
 
-        my_trip_list.all.map do |x|
-            x.holiday
-        end
-
-    end
-
-    # user searches for holidays by country
-    def search_holiday_by_country(country_name)
-
-        country_list = CountryHoliday.all.select do |x|
-            x.country == country_name
-        end
-
-        country_list.all.map do |y|
-            y.holiday
-        end
-
-    end
-
-    # user searches for countries by holiday
-    def search_country_by_holiday(holiday_name)
-
-        holiday_list = CountryHoliday.all.select do |x|
-            x.holiday == holiday_name 
-        end
-
-        holiday_list.all.map do |y|
-            y.country
-        end
-
-    end
-
-
+    # end
 
 end
