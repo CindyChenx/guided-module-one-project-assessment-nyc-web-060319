@@ -18,7 +18,8 @@ end
 COUNTRY_NAMES.each do |key, value|
   Country.find_or_create_by(name: value, country_code: key )
 end
-
+#add Eswatini
+Country.find_or_create_by(name: "eSwatini", country_code: 'sz')
 #create holiday and country join table
 seed_array = find_country_holiday_pairs(HOLIDAYS_OF_THE_WORLD)
 populate_db_holidays_countries(seed_array)
@@ -31,6 +32,3 @@ names = ["Carita", "Zachariah", "Magaret", "Chrissy", "Burton", "Rachelle","Agnu
 for counter in 0..19 do
   User.find_or_create_by(name: names[counter])
 end
-
-
-
