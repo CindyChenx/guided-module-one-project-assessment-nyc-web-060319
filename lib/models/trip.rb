@@ -101,8 +101,13 @@ class Trip < ActiveRecord::Base
     def selectCountry(hol)
         puts "Select a country to add to your trip"
         countryName = gets.chomp
-        country = Country.find_by(name: countryName)
-        HolidayTrip.create(holiday_id: hol.id, trip_id: self.id, country_id: country.id)
+        c = Country.find_by(name: countryName)
+        if c == nil || c == []
+            puts "Input a valid country"
+            self.selectCountry(hol)
+        else
+            HolidayTrip.create(holiday_id: hol.id, trip_id: self.id, country_id: c.id)
+        end
     end
 
 
@@ -114,19 +119,23 @@ class Trip < ActiveRecord::Base
         else
             puts "Choose the holiday you want to delete from your trip:"
             delete_holiday_name = gets.chomp
+          
             h = Holiday.find_by(name: delete_holiday_name)
-            HolidayTrip.where(trip_id: self.id, holiday_id: h.id)[0].destroy
-            self.display_trip_details
+            if h == nil || h == []
+                puts "Input a valid holiday name"
+                self.remove_holiday_from_trip
+            else
+                HolidayTrip.where(trip_id: self.id, holiday_id: h.id)[0].destroy
+                self.display_trip_details
+            end
         end
             
     end
 
     # user checks details in his trip
     def display_trip_details
-        #country = CountryHoliday.find_by(self.country_id)
-        #date
+        puts "Here are your trip details:"
         allTrips = HolidayTrip.where(trip_id: self.id)
-        #puts allTrips.inspect
         allTrips.each do |holTrip|
             hol = Holiday.find(holTrip.holiday_id)
             conHol = CountryHoliday.find_by(holiday_id: hol.id)
@@ -145,41 +154,16 @@ class Trip < ActiveRecord::Base
         puts self.display_holidays
         puts "Choose a holiday by name:"
         holiday_name = gets.chomp
-        holidayChosen = self.display_countries_by_holiday(holiday_name)
-        self.selectCountry(holidayChosen)
+        h  = Holiday.find_by(name: holiday_name)
+        if h == nil || h == []
+            puts "Input a valid holiday"
+            self.holidayOption
+        else
+            holidayChosen = self.display_countries_by_holiday(holiday_name)
+            self.selectCountry(holidayChosen)
+        end
     end
 
- 
-    
 
-
-
-
-    # def add_holiday_to_trip(trip_name, holiday_name) 
-
-    #     HolidayTrip.create(holiday_id: Holiday.find_by(name: holiday_name).id, trip_id: Trip.find_by(name: trip_name).id)
-
-    #     self.HolidayTrip.all.map do |x|
-    #         x.holiday 
-    #     end
-
-    # end
-
-    # # user deletes a holiday from his trip
-    # def delete_holiday_from_trip(trip_name, holiday_name)
-
-
-
-    #     my_trip_list = HolidayTrip.all.select do |x|
-    #         x.trip_name == trip_name
-    #     end
-
-    #     my_holiday = my_trip_list.all.select do |y|
-    #         y.holiday == holiday_name
-    #     end
-
-    #     my_holiday.delete
-
-    # end
 
 end

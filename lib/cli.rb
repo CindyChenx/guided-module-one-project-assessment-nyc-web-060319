@@ -21,54 +21,55 @@ def self.newTrip
 end
 
 
-
 def self.edit_trip
     puts "Please enter the trip name you would like to edit:"
     tripName = gets.chomp
     userTrip = Trip.find_by(name: tripName)
-    userTrip.display_trip_details
-    puts ""
-    puts "Would you like to:
-    view: See the details of my trip
-    change: Change the name
-    holiday: See all the holidays to add to your trip
-    delete: Delete the trip
-    remove: Remove holiday from my trip
-    back: See all my trips again"
-    #country: See countries with holidays to add to your trip
-    option = gets.chomp
-
-    if option == "delete"
-        userTrip.delete_my_trip_by_name
-        view_or_edit
-    elsif option == "change"
-        puts "Please enter a new trip name:"
-        newTripName = gets.chomp
-        @user.update_trip_name(tripName, newTripName)
-    # elsif option == "country"
-    #     userTrip.display_countries
-    elsif option == "holiday"
-        userTrip.holidayOption
-        #userTrip.display_trip_details
-        edit_trip
-    elsif option == "back"
-        view_or_edit
-    elsif option == "view"
-        #userTrip.display_trip_details
-        edit_trip
-    elsif option == "remove"
-        userTrip.remove_holiday_from_trip
+    if userTrip == [] || userTrip == nil
+        puts "That trip doesn't exist"
         edit_trip
     else
-        puts "invalid input"
-        edit_trip
+        userTrip.display_trip_details
+        puts ""
+        puts "Would you like to:
+        view: See the details of my trip
+        change: Change the name
+        holiday: See all the holidays to add to your trip
+        delete: Delete the trip
+        remove: Remove holiday from my trip
+        back: See all my trips again"
+        option = gets.chomp
+
+        if option == "delete"
+            userTrip.delete_my_trip_by_name
+            view_or_edit
+        elsif option == "change"
+            puts "Please enter a new trip name:"
+            newTripName = gets.chomp
+            @user.update_trip_name(tripName, newTripName)
+            edit_trip
+        elsif option == "holiday"
+            userTrip.holidayOption
+            userTrip.display_trip_details
+            edit_trip
+        elsif option == "back"
+            view_or_edit
+        elsif option == "view"
+            if HolidayTrip.where(trip_id: userTrip.id).size == 0
+                puts "You have no holidays planned"
+                edit_trip
+            else
+            edit_trip
+            end
+        elsif option == "remove"
+            userTrip.remove_holiday_from_trip
+            edit_trip
+        else
+            puts "invalid input"
+            edit_trip
+        end
     end
-
 end
-
-
-
-
 
 
 def self.view_or_edit
@@ -77,23 +78,41 @@ def self.view_or_edit
     else
         @user.display_trips
     end
-    puts "Would you like to edit a trip or make a new trip? (edit/new)"
+    puts "Would you like to edit a trip, make a new trip, or go back? (edit/new/back)"
     answer = gets.chomp
     if answer == "new"
         newTrip
         plan_or_view
     elsif answer == "edit"
         edit_trip
+    elsif answer == "back"
+        plan_or_view
+    else
+        puts "Not a valid input"
+        view_or_edit
     end
 end
 
 def self.plan_or_view
-    puts "Hi " + @user.name + ". Would you like to view your saved trips or plan a new one? (view/plan)"
-    action = gets.chomp
+    puts "Hi " + @user.name + "."
+    action = makeChoice
     if action == "view"
         view_or_edit
+        plan_or_view
     elsif action == "plan"
         newTrip
+        plan_or_view
+    elsif action == "delete"
+        Trip.all.each do |t|
+            if t.user_id == @user.id
+                t.destroy
+            end
+        end
+        plan_or_view
+    elsif action == "switch"
+        puts "Input user name"
+        name = gets.chomp
+        @user = User.find_or_create_by(name: name)
         plan_or_view
     else
         puts "Not a valid response"
@@ -102,9 +121,15 @@ def self.plan_or_view
 
 end
 
-
-
-
+def self.makeChoice
+    puts "What would you like to do?
+    delete - Delete all your trips
+    switch - Switch to a different user
+    view - View all your trips
+    plan - Plan a new trip "
+    action = gets.chomp
+    return action
+end
 
 
 

@@ -30,7 +30,6 @@ class User < ActiveRecord::Base
             t.name == old_trip_name
         end.update(name: new_trip_name)
     
-       # trip
     
     end
 
@@ -55,6 +54,7 @@ class User < ActiveRecord::Base
     end
 
     def display_trips
+        puts "Here are your trips:"
         check_my_trip.each do |t|
             puts t.name + " , from " + t.start_date + " to " + t.end_date
         end
@@ -77,46 +77,5 @@ class User < ActiveRecord::Base
         Trip.find_by(name: trip_name).destroy
         
     end
-
-
-
-    # # user checks holidays in his trip
-    # def check_holidays(trip_name)
-
-    #     my_trip_list = HolidayTrip.all.select do |x|
-    #         x.trip_name == trip_name
-    #     end
-
-    #     my_trip_list.all.map do |x|
-    #         x.holiday
-    #     end
-
-    # end
-
-    # # user searches for holidays by country
-    # def search_holiday_by_country(country_name)
-
-    #     country_list = CountryHoliday.all.select do |x|
-    #         x.country == country_name
-    #     end
-
-    #     country_list.all.map do |y|
-    #         y.holiday
-    #     end
-
-    # end
-
-    # # user searches for countries by holiday
-    # def search_country_by_holiday(holiday_name)
-
-    #     holiday_list = CountryHoliday.all.select do |x|
-    #         x.holiday == holiday_name 
-    #     end
-
-    #     holiday_list.all.map do |y|
-    #         y.country
-    #     end
-
-    # end
 
 end
