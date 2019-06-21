@@ -150,7 +150,7 @@ class Trip < ActiveRecord::Base
                 hol = Holiday.find(holTrip.holiday_id)
                 conHol = CountryHoliday.find_by(holiday_id: hol.id)
                 con = Country.find(holTrip.country_id)
-                puts "holTrip.country_id is #{holTrip.country_id}"
+                # puts "holTrip.country_id is #{holTrip.country_id}"
                 puts hol.name + ", on " +  hol.date + ", in " + (con.name ||= 1)
             end
         end
