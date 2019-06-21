@@ -143,17 +143,17 @@ class Trip < ActiveRecord::Base
     def display_trip_details
         puts "Here are your trip details:"
         allTrips = HolidayTrip.where(trip_id: self.id)
-        allTrips.each do |holTrip|
-            hol = Holiday.find(holTrip.holiday_id)
-            conHol = CountryHoliday.find_by(holiday_id: hol.id)
-            # con = Country.find(conHol.country_id)
-            con = Country.find(holTrip.country_id)
-            # puts "con is:  #{con}"
-            # puts con.inspect
-            puts "holTrip.country_id is #{holTrip.country_id}"
-            puts hol.name + ", on " +  hol.date + ", in " + (con.name ||= 1)
+        if allTrips.size == 0 
+            puts "There is no holidays planed in your trip"
+        else
+            allTrips.each do |holTrip|
+                hol = Holiday.find(holTrip.holiday_id)
+                conHol = CountryHoliday.find_by(holiday_id: hol.id)
+                con = Country.find(holTrip.country_id)
+                puts "holTrip.country_id is #{holTrip.country_id}"
+                puts hol.name + ", on " +  hol.date + ", in " + (con.name ||= 1)
+            end
         end
-
 
     end
 
