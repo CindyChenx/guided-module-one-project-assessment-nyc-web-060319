@@ -1,3 +1,39 @@
+#Trip Holiday Finder
+
+Trip Holiday Finder is a CLI interface Ruby application that lets you search for holidays and celebrations around the world and plan and manages trips of holidays of your choosing.
+
+##Installation
+
+In respect of the terms of Calendarific’s API, we are unable to post the database of holidays and countries publicly. Unfortunately, the program is heavily reliant on the database and will not function without this component.
+
+## Run
+In your terminal, navigate to the directory where the run.rb file of the application is saved.  Enter “ruby run.rb” in your terminal, and the application with initialize. 
+
+## Use 
+First you will be prompted to enter a name (which functions as a username, so you can visit the application again later and see your plans).  Next, you enter a trip start and end date, which will be the date portion of the search parameters.   And finally, a reference name for your trip.   The program then outputs a list of holidays.  From there, you select a holiday, and can see all the countries that participate.   At this stage, you select a travel plan to add by entering the country name.  A travel plan is added to your trip for the holiday date, holiday name, and country.   Following the prompts and navigation menus, you can add another holiday to your trip, delete a holiday from a trip, delete an entire trip, or make a new trip. 
+
+## Built With
+Trip Holiday Finder utilizes Ruby and SQLite3.
+
+## Structure
+There are four tables of data: User, Trip, Holiday, and Country, all linked by two join tables. 
+
+##Authors
+Cindy Chen - CindyChenx
+Tomas Engquist – te68
+Victoria Sigler - 95north
+
+
+##License
+MIT License
+https://choosealicense.com/licenses/mit/
+
+
+
+
+
+
+
 Module One Final Project
 ========================
 
