@@ -1,8 +1,8 @@
-#Trip Holiday Finder
+## Trip Holiday Finder
 
 Trip Holiday Finder is a CLI interface Ruby application that lets you search for holidays and celebrations around the world and plan and manages trips of holidays of your choosing.
 
-##Installation
+## Installation
 
 In respect of the terms of Calendarific’s API, we are unable to post the database of holidays and countries publicly. Unfortunately, the program is heavily reliant on the database and will not function without this component.
 
@@ -18,13 +18,13 @@ Trip Holiday Finder utilizes Ruby and SQLite3.
 ## Structure
 There are four tables of data: User, Trip, Holiday, and Country, all linked by two join tables. 
 
-##Authors
+## Authors
 Cindy Chen - CindyChenx
 Tomas Engquist – te68
 Victoria Sigler - 95north
 
 
-##License
+## License
 MIT License
 https://choosealicense.com/licenses/mit/
 
