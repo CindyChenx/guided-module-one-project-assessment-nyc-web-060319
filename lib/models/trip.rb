@@ -102,10 +102,17 @@ class Trip < ActiveRecord::Base
         puts "Select a country to add to your trip"
         countryName = gets.chomp
         c = Country.find_by(name: countryName)
-        if c == nil || c == []
+        # puts c.inspect 
+        # puts "puts c[0] is #{c[0]}"
+        # puts "At line 105 ^"
+        if c == nil || c == [] #|| c[0] == nil 
             puts "Input a valid country"
             self.selectCountry(hol)
         else
+            # puts hol.id.inspect
+            # puts self.inspect
+            # puts c.id
+            # puts c
             HolidayTrip.create(holiday_id: hol.id, trip_id: self.id, country_id: c.id)
         end
     end
@@ -139,8 +146,12 @@ class Trip < ActiveRecord::Base
         allTrips.each do |holTrip|
             hol = Holiday.find(holTrip.holiday_id)
             conHol = CountryHoliday.find_by(holiday_id: hol.id)
-            con = Country.find(conHol.country_id)
-            puts hol.name + ", on " +  hol.date + ", in " + con.name
+            # con = Country.find(conHol.country_id)
+            con = Country.find(holTrip.country_id)
+            # puts "con is:  #{con}"
+            # puts con.inspect
+            puts "holTrip.country_id is #{holTrip.country_id}"
+            puts hol.name + ", on " +  hol.date + ", in " + (con.name ||= 1)
         end
 
 
@@ -150,12 +161,12 @@ class Trip < ActiveRecord::Base
         Trip.find(self.id).destroy
     end
 
-    def holidayOption
+    def holidayOption   #called by userTrip no dupls in Holiday! 
         puts self.display_holidays
         puts "Choose a holiday by name:"
         holiday_name = gets.chomp
         h  = Holiday.find_by(name: holiday_name)
-        if h == nil || h == []
+        if h == nil || h == [] #|| h[0] == nil
             puts "Input a valid holiday"
             self.holidayOption
         else
